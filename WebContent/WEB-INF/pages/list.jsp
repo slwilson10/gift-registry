@@ -10,7 +10,7 @@
 <body>
 	<div id="giftlist">
 	<div id="giftlist-header">
-		<img style="width: 100%;" src="<c:url value='/resources/images/scroll_top.png'/> " >
+		<!--  <img style="width: 100%;" src="<c:url value='/resources/images/scroll_top.png'/> " > -->
 	</div>
 	<div id="giftlist-body">
 		<c:if test="${not empty boughtMsg}">
@@ -53,7 +53,7 @@
 				</div>
 			</c:if>
 		</div>
-	<div id="giftlist-footer"><img style="width: 100%;" src="<c:url value='/resources/images/scroll_bottom.png'/> " ></div>
+	<!-- <div id="giftlist-footer"><img style="width: 100%;" src="<c:url value='/resources/images/scroll_bottom.png'/> " ></div>-->
 </div>
 </body>
 </html>

@@ -19,10 +19,10 @@
 	<div id="wrapper">
 		<div id="header"><tiles:insertAttribute name ="header"/></div>
 		<div id="body">
+			<div id="navbar"><tiles:insertAttribute name ="navbar"/></div>
 			<div id="content">
 				<div id="snowflakes"></div>
 				<tiles:insertAttribute name ="body"/>
-				<div id="navbar"><tiles:insertAttribute name ="navbar"/></div>
 			</div>
 		</div>
 		<div id="footer"><tiles:insertAttribute name ="footer"/></div>

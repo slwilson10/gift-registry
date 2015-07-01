@@ -24,5 +24,5 @@
 			</div>
 		</c:if>
 	</div>
-	<div id="logo"><img style="width: 80%;" src="<c:url value='/resources/images/logo.png'/> "></div>
+	<div id="logo"><img style="width: 20%;" src="<c:url value='/resources/images/logo.png'/> "></div>
 </div>

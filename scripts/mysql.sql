@@ -1,3 +1,6 @@
+CREATE DATABASE registry;
+USE registry;
+
 DROP TABLE IF EXISTS users, user_roles, WhoFor, Gift, Store;
 
 CREATE  TABLE IF NOT EXISTS users (

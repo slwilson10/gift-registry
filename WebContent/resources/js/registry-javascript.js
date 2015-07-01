@@ -16,7 +16,7 @@ $(document).ready(function(){
 	.mouseover(
 		function(){
 			$(this).animate({
-				marginLeft:'-10%'
+				marginLeft:'-20%'
 			},'slow');
 	})
 	.mouseout(
@@ -27,8 +27,8 @@ $(document).ready(function(){
 	});
 	$( "#giftlist-grid" ).hide();
 
-	$( "#giftlist-body" ).animate({marginBottom: '-5%', marginTop: '-5%'}, 800 );
-	$( "#giftlist-body" ).animate({marginBottom: '-10%', marginTop: '-10%'}, 500 );
+//	$( "#giftlist-body" ).animate({marginBottom: '-5%', marginTop: '-5%'}, 800 );
+//	$( "#giftlist-body" ).animate({marginBottom: '-10%', marginTop: '-10%'}, 500 );
 	
 	$( "#giftlist-grid" ).fadeIn(1000);
 	
@@ -140,7 +140,7 @@ $(document).ready(function(){
 	// Loops through array, creates new div and sets css for each snowflake
 	for (var i = 0; i < numberOfSnowflakes; i++) {
 	    var x = snowflakes[i];
-	    $('#snowflakes').append('<div class="'+x+'" style="float: left; position: absolute; top: -3%; left:'+ getRandomPercent(10, 90) +'; width: 8px; height: 8px; border-radius: 5px; background: white;"></div>');
+	    $('#snowflakes').append('<div class="'+x+'" style="float: left; position: absolute; top: -3%; left:'+ getRandomPercent(5, 95) +'; width: 8px; height: 8px; border-radius: 5px; background: white;"></div>');
 	}
 
 	// Calls main funtion
@@ -159,7 +159,7 @@ $(document).ready(function(){
 	        // Move to top to be repeated while still invisible
 	        y.animate({top: '-3%'}, 1000, function(){
 	            // Randomly reposition
-	            $(this).css({left: getRandomPercent(10, 90)});
+	            $(this).css({left: getRandomPercent(5, 95)});
 	            // Show again
 	            $(this).css({opacity: '100'}, 10);
 	        });

@@ -57,19 +57,16 @@ height: 100%;
 #content {
 	width: 90%;
 	margin: auto; 
-	overflow: hidden;
-	margin: 2% auto; 
+	overflow: hidden; 
 }
 
 
 #navbar{
-	float: right; 
-	width: 14.5%;
+	width: 17%;
 	z-index: 0; 
 	position: relative;
-  	right: 6%;
-  	transform: translate(-50%);
-  	margin-top: 2%;
+  	left: 0;
+  	margin: 4% 0 0 1%;
 }
 
 .ribbon{
@@ -80,7 +77,6 @@ height: 100%;
 }
 
 #header {
-	background: #75C7C9;
 	width: 100%;
 	position: relative;
 	top: 0;
@@ -94,9 +90,12 @@ height: 100%;
 	padding: 0.5% 0;
 }
 
-#logo{
-	width: 30%;
-	margin: auto;
+#logo img{
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 20;
 
 
 }
@@ -156,11 +155,11 @@ height: 100%;
 }
 
 #giftlist {
-	position: relative;
+	position: absolute;
 	z-index: 2;
-	float: left;
-  	left: 45%;
-  	transform: translate(-50%);
+  	left: 50%;
+  	top: 50%;
+  	transform: translate(-50%, -50%);
 	margin: auto;
 	width: 53%;
 }
@@ -172,18 +171,17 @@ height: 100%;
 }
 
 #giftlist-body {
-	width: 83.5%;
-	position: relative;
-	bottom: 0;
-	right: 0;
-	margin: -10% 0 -10% 15.4%;
+	width:100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	background-color: rgb(241, 220, 170);
 }
 
 #giftlist-grid { 
-	margin-left: 6%;
-	height: 100%;
 	width: 90%;
+	margin: auto auto auto 7%;
 }
 
 #giftlist-footer {
