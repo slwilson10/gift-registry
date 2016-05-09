@@ -1,15 +1,19 @@
 package com.giftregistry.controller;
 
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.validation.BindingResult;
 
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -59,49 +63,71 @@ public class MainController {
 	}*/
 	
 	@RequestMapping (value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView listGifts(@RequestParam Map<String,String> pathVars) {
+	@ResponseBody
+	public ModelAndView listGifts(@RequestParam Map<String,String> pathVars, 
+			@RequestParam(value = "price", required = false) String price,
+			@RequestParam(value = "store", required = false) String store,
+			@RequestParam(value = "whofor", required = false) String whofor) {
 		
-		String all = pathVars.get("all");
-		String both = pathVars.get("both");
-		String stephen = pathVars.get("stephen");
-		String erica = pathVars.get("erica");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String curuser = auth.getName();
 		String boughtMsg = pathVars.get("boughtMsg");
-		
 		ModelAndView model = new ModelAndView("list");
 		model.addObject("gift", new Gift());
-		if (all != null) {
-			model.addObject("listGifts", this.giftService.listGifts());
-			model.addObject("wholist", "all");}
-	 
-		if (both != null) {
-			model.addObject("listGifts", this.giftService.listBothGifts());
-			model.addObject("wholist", "both");}
-
-		if (stephen != null) {
-			model.addObject("listGifts", this.giftService.listStephenGifts());
-			model.addObject("wholist", "stephen");}
-		
-		if (erica != null) {
-			model.addObject("listGifts", this.giftService.listEricaGifts());
-			model.addObject("wholist", "erica");}
-		
-		if (boughtMsg != null) {
-			model.addObject("boughtMsg", "Sorry. Item has already been bought.");}
-		
+		model.addObject("whoforlist", this.giftService.listWhoFors());
+		model.addObject("storeslist", this.giftService.listStores());
+		model.addObject("listGifts", this.giftService.listGifts(whofor,store,price));
+		//model.addObject("listBoughtByYou", this.giftService.listBoughtByYou(curuser));
 		return model;
 	}
 	
-	//When search reads /admin anything return amdin.jsp
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String adminPage(Model model) {
- 
-	  model.addAttribute("gift", new Gift());
-	  model.addAttribute("listGifts", this.giftService.listGifts());
-	  model.addAttribute("listWhoFors", this.giftService.listWhoFors());
-	  model.addAttribute("listStores", this.giftService.listStores());
-	  model.addAttribute("listUsers", this.giftService.listUsers());
-	  return "admin";
+	@RequestMapping (value = "/cart", method =  RequestMethod.GET )
+	public ModelAndView cartGifts(@RequestParam Map<String,String> pathVars, 
+			@RequestParam(value = "price", required = false) String price,
+			@RequestParam(value = "store", required = false) String store,
+			@RequestParam(value = "whofor", required = false) String whofor) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String curuser = auth.getName();
+		ModelAndView model = new ModelAndView("cart");
+		model.addObject("gift", new Gift());
+		model.addObject("whoforlist", this.giftService.listWhoFors());
+		model.addObject("storeslist", this.giftService.listStores());
+		model.addObject("listGifts", this.giftService.listGifts(whofor,store,price));
+		model.addObject("listBoughtByYou", this.giftService.listBoughtByYou(curuser));
+		return model;
 	}
+	
+	@RequestMapping (value = "/buy/{id}", method =  RequestMethod.GET )
+	public ModelAndView buyGift(@RequestParam Map<String,String> pathVars, 
+			@RequestParam(value = "price", required = false) String price,
+			@RequestParam(value = "store", required = false) String store,
+			@RequestParam(value = "whofor", required = false) String whofor, 
+			@PathVariable("id") int id) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String curuser = auth.getName();
+		ModelAndView model = new ModelAndView("buy");
+		model.addObject("gift", this.giftService.getGiftById(id));
+		model.addObject("whoforlist", this.giftService.listWhoFors());
+		model.addObject("storeslist", this.giftService.listStores());
+		model.addObject("listGifts", this.giftService.listGifts(whofor,store,price));
+		return model;
+	}
+	
+	
+	
+	//When search reads /admin anything return amdin.jsp
+//	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+//	public String adminPage(Model model) {
+// 
+//	  model.addAttribute("gift", new Gift());
+//	  model.addAttribute("listGifts", this.giftService.listGifts());
+//	  model.addAttribute("listWhoFors", this.giftService.listWhoFors());
+//	  model.addAttribute("listStores", this.giftService.listStores());
+//	  model.addAttribute("listUsers", this.giftService.listUsers());
+//	  return "admin";
+//	}
 	
 	//For add person 
     @RequestMapping(value= "/admin/add", method = RequestMethod.POST)
@@ -143,15 +169,15 @@ public class MainController {
         return "redirect:/admin";
     }
   
-    @RequestMapping(value = "/admin/edit/{id}", method = RequestMethod.GET)
-    public String editGift(@PathVariable("id") int id, Model model){
-        model.addAttribute("gift", this.giftService.getGiftById(id));
-        model.addAttribute("listWhoFors", this.giftService.listWhoFors());
-        model.addAttribute("listStores", this.giftService.listStores());
-        model.addAttribute("listGifts", this.giftService.listGifts());
-        model.addAttribute("listUsers", this.giftService.listUsers());
-        return "edit";
-    }
+//    @RequestMapping(value = "/admin/edit/{id}", method = RequestMethod.GET)
+//    public String editGift(@PathVariable("id") int id, Model model){
+//        model.addAttribute("gift", this.giftService.getGiftById(id));
+//        model.addAttribute("listWhoFors", this.giftService.listWhoFors());
+//        model.addAttribute("listStores", this.giftService.listStores());
+//        model.addAttribute("listGifts", this.giftService.listGifts());
+//        model.addAttribute("listUsers", this.giftService.listUsers());
+//        return "edit";
+//    }
     
     @RequestMapping(value = "/admin/edit", method = RequestMethod.POST)
     public String editedGift(@ModelAttribute("gift") Gift g){
@@ -164,7 +190,10 @@ public class MainController {
     public void buyGift(@PathVariable("id") int id, @PathVariable("username") String username, 
     		HttpServletRequest request, @PathVariable("status") Boolean status, 
     		@PathVariable("wholist") String wholist){
-		    	 giftService.buyGift(id, username);
+		    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+				String curuser = auth.getName();
+    			giftService.buyGift(id, username);
+    			giftService.listBoughtByYou(curuser);
 
     }
     
@@ -234,5 +263,6 @@ public class MainController {
 	  return model;
  
 	}
+	
  
 }

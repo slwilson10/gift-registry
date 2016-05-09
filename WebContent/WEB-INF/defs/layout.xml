@@ -6,38 +6,69 @@
 
     <definition name="DefaultTemplate" 
       template="/WEB-INF/pages/template.jsp">
-		<put-attribute name="header" 	value="/WEB-INF/pages/header.jsp" />
-		<put-attribute name="navbar" 	value="/WEB-INF/pages/navbar.jsp" />
+		 <put-attribute name="cart" 	value="/WEB-INF/pages/cart.jsp" />
+		<put-attribute name="buyitem" 	value="/WEB-INF/pages/buyitem.jsp" />
+		<put-attribute name="header1" 	value="/WEB-INF/pages/header1.jsp" />
+		<put-attribute name="main" 		value="/WEB-INF/pages/main.jsp" />
+		<put-attribute name="left" 		value="/WEB-INF/pages/left.jsp" />
+		<put-attribute name="middle" 	value="/WEB-INF/pages/middle.jsp" />
+		<put-attribute name="right" 	value="/WEB-INF/pages/right.jsp" />
 		<put-attribute name="footer" 	value="/WEB-INF/pages/footer.jsp" />
 	</definition>
 	
 	<definition name="login1" extends="DefaultTemplate"
       template="/WEB-INF/pages/template.jsp">
 		<put-attribute name="title" 	value="Login" />
-		<put-attribute name="header" 	value="" />
-		<put-attribute name="navbar" 	value="" />
-		<put-attribute name="body" 		value="/WEB-INF/pages/login1.jsp" />
+		<put-attribute name="header1" 	value="" />
+		<put-attribute name="filter" 	value="" />
+		<put-attribute name="cart" 		value="" />
+		<put-attribute name="buyitem" 	value="" />
+		<put-attribute name="main" 		value="" />
+		<put-attribute name="left" 		value="" />
+		<put-attribute name="right" 	value="" />
+		<put-attribute name="middle" 	value="/WEB-INF/pages/login1.jsp" />
 	</definition>
-	
-	<definition name="list" extends="DefaultTemplate"
+  	
+  	<definition name="list" extends="DefaultTemplate"
       template="/WEB-INF/pages/template.jsp">
 		<put-attribute name="title" 	value="List" />
-		<put-attribute name="body" 		value="/WEB-INF/pages/list.jsp" />
+		<put-attribute name="cart" 		value="" />
+		<put-attribute name="buyitem" 	value="" />
+		<put-attribute name="middle" 	value="/WEB-INF/pages/middle.jsp" />
+	</definition>
+	
+	<definition name="cart" extends="DefaultTemplate"
+      template="/WEB-INF/pages/template.jsp">
+		<put-attribute name="title" 	value="Cart" />
+		<put-attribute name="cart" 		value="/WEB-INF/pages/cart.jsp" />
+		<put-attribute name="buyitem" 	value="" />
+		<put-attribute name="middle" 	value="/WEB-INF/pages/middle.jsp" />
+	</definition>
+	
+	<definition name="buy" extends="DefaultTemplate"
+      template="/WEB-INF/pages/template.jsp">
+		<put-attribute name="title" 	value="Buy" />
+		<put-attribute name="cart" 		value="" />
+		<put-attribute name="buyitem" 	value="/WEB-INF/pages/buyitem.jsp" />
+		<put-attribute name="middle" 	value="/WEB-INF/pages/middle.jsp" />
 	</definition>
 	
 	<definition name="admin" extends="DefaultTemplate"
       template="/WEB-INF/pages/template.jsp">
 		<put-attribute name="title" 	value="Admin" />
 		<put-attribute name="header" 	value="" />
-		<put-attribute name="navbar" 	value="" />
+		<put-attribute name="filter" 	value="" />
+		<put-attribute name="cart" 		value="" />
 		<put-attribute name="body" 		value="/WEB-INF/pages/admin.jsp" />
 		<put-attribute name="footer" 	value="" />
 	</definition>
 	
 	<definition name="403" extends="DefaultTemplate"
       template="/WEB-INF/pages/template.jsp">
-		<put-attribute name="title" 	value="Admin" />
+		<put-attribute name="title" 	value="403" />
 		<put-attribute name="body" 		value="/WEB-INF/pages/403.jsp" />
+		<put-attribute name="filter" 	value="" />
+		<put-attribute name="cart" 		value="" />
 	</definition>
 	
 </tiles-definitions>

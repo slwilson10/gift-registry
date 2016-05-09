@@ -42,10 +42,6 @@ public class Gift {
 	@Column(name="BoughtBy")
 	private String username;
 	
-	
-	
-
-
 	public int getId() {
 		return id;
 	}

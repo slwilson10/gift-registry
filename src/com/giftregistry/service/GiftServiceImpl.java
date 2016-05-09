@@ -1,6 +1,8 @@
 package com.giftregistry.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ public class GiftServiceImpl implements GiftService{
 	public void addGift(Gift g){
 		this.giftDAO.addGift(g);
 	}
+	
 	@Override
 	@Transactional
 	public void updateGift(Gift g){
@@ -38,8 +41,8 @@ public class GiftServiceImpl implements GiftService{
 	
 	@Override
 	@Transactional
-	public List<Gift> listGifts(){
-		return this.giftDAO.listGifts();
+	public List<Gift> listGifts(String whofor, String store,  String price){
+		return this.giftDAO.listGifts(whofor,store,price);
 
 	}
 	
@@ -63,6 +66,13 @@ public class GiftServiceImpl implements GiftService{
 	@Transactional
 	public List<Gift> listEricaGifts(){
 		return this.giftDAO.listEricaGifts();
+
+	}
+	
+	@Override
+	@Transactional
+	public List<Gift> listBoughtByYou(String curuser){
+		return this.giftDAO.listBoughtByYou(curuser);
 
 	}
 	

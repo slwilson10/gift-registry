@@ -1,10 +1,17 @@
 package com.giftregistry.dao;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
 
 
+
+
+
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -52,13 +59,35 @@ public class GiftDAOImpl implements GiftDAO{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Gift> listGifts(){
+	public List<Gift> listGifts(String whofor, String store, String price){
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Gift> giftList = session.createQuery("From Gift").list();
-		for(Gift g : giftList){
-			logger.info("Gift List::" +g);
+		System.out.println(whofor);
+		System.out.println(store);
+		System.out.println(price);
+		if (whofor != null){ 
+			List<Gift> giftList = session.createQuery("FROM Gift WHERE WhoForID_fk='"+whofor + "'").list();
+			return giftList;}
+		if (store != null){ 
+			List<Gift> giftList = session.createQuery("FROM Gift WHERE StoreID_fk='"+store + "'").list();
+			return giftList;}
+		if (price != null){ 
+			if (price.equals("$")){
+				List<Gift> giftList = session.createQuery("FROM Gift WHERE Price < 10").list();
+				return giftList;
+			}
+			if (price.equals("$$")){
+				List<Gift> giftList = session.createQuery("FROM Gift WHERE Price Between 10 and 50").list();
+				return giftList;
+			}
+			if (price.equals("$$$")){
+				List<Gift> giftList = session.createQuery("FROM Gift WHERE Price > 50").list();
+				return giftList;
+			}
+			else {List<Gift> giftList = session.createQuery("From Gift").list();
+			return giftList;}
 		}
-		return giftList;
+		else {List<Gift> giftList = session.createQuery("From Gift").list();
+			return giftList;}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -88,6 +117,18 @@ public class GiftDAOImpl implements GiftDAO{
 	public List<Gift> listEricaGifts(){
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Gift> giftList = session.createQuery("From Gift Where WhoForID_fk='Erica'").list();
+		for(Gift g : giftList){
+			logger.info("Gift List::" +g);
+		}
+		return giftList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Gift> listBoughtByYou(String curuser){
+		System.out.println("Tyhe user is:" +curuser);
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Gift> giftList = session.createQuery("From Gift Where BoughtBy='"+curuser+"'").list();
 		for(Gift g : giftList){
 			logger.info("Gift List::" +g);
 		}
@@ -148,7 +189,6 @@ public class GiftDAOImpl implements GiftDAO{
 	public void buyGift(int id, String username){
 		Session session = this.sessionFactory.getCurrentSession();
 		Gift g = (Gift) session.load(Gift.class, new Integer(id));
-		String msg = g.getUsername();
 		if(g.getStatus() == false){
 			System.out.println("Running if in DAOImpl");
 					g.setStatus(true);
@@ -158,6 +198,7 @@ public class GiftDAOImpl implements GiftDAO{
 				System.out.println("Running else in DAOImpl");
 			g.setStatus(false);
 			g.setUsername(username);
+			System.out.println(username);
 			session.update(g);
 			}
 	}

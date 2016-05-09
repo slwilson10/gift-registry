@@ -1,0 +1,34 @@
+﻿Gift Registry ToDo:
+
+Cart Window:
+	- Items bought by you			--OK
+	- Link cart icon to bring up window
+	- Show Items in window
+Filter Window:
+	- Filter by store, whofor, and price 	--OK
+	- Icons to show active filters
+Design for Admin Page:
+	- Custom form error handling
+	- Text
+	- Titles
+Design for List:
+	- Page though Buttons
+	- Texts
+	- Titles				--OK
+	- Gray bought items
+	- Change “buy” to “bought”
+	- Different color gifts
+- Logo						--OK
+- Footer image					--OK
+- Add contact form
+- Link Field for items
+- Function to check if item is already bought 	--OK
+- Set username when things are bought 		--OK
+- Connect User with item 			--OK
+- Use Ajax to change status instead of URL	--OK
+- Instead of pre-creating gift bubbles,
+  use javascript to generate them when clicked
+
+
+Notes:
+- Use a single function with arguements for the filter. When first set, assume "All" for each category.

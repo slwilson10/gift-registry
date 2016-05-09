@@ -1,32 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"> 
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <title><tiles:getAsString name ="title"/></title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/registry-stylesheet.css"    
- type="text/css" />
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/registry-javascript.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/registry.css"/>" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="<c:url value="/resources/js/registry.js"/>"></script>
 </head>
 <body>
-	<div id="wrapper">
-		<div id="header"><tiles:insertAttribute name ="header"/></div>
-		<div id="body">
-			<div id="navbar"><tiles:insertAttribute name ="navbar"/></div>
-			<div id="content">
-				<div id="snowflakes"></div>
-				<tiles:insertAttribute name ="body"/>
-			</div>
-		</div>
-		<div id="footer"><tiles:insertAttribute name ="footer"/></div>
-	</div>
-
+	<tiles:insertAttribute name ="cart"/>
+	<tiles:insertAttribute name ="buyitem"/>
+	<header><tiles:insertAttribute name ="header1"/></header><!--  End Header -->
+	<main role="main">
+			<div id="left"><tiles:insertAttribute name ="left"/></div> <!--  End Main Left -->
+			<div id="middle"><tiles:insertAttribute name ="middle"/></div> <!--  End Main Middle -->
+			<div id="right"><tiles:insertAttribute name ="right"/></div> <!--  End Main Right -->
+	</main> <!--  End Main -->
+	<footer><tiles:insertAttribute name ="footer"/></footer>
 </body>
 </html>
